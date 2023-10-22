@@ -1,0 +1,23 @@
+import { render, screen, fireEvent } from "@testing-library/react";
+import { vi as jest } from "vitest";
+import "@testing-library/jest-dom";
+import {{componentName}} from "./index.tsx";
+
+describe("{{componentName}}", () => {
+  it("base {{componentName}}", () => {
+    render(<{{componentName}}>click</{{componentName}}>);
+    const btnElem = screen.getByText("click");
+    expect(btnElem).toBeInTheDocument();
+  });
+  it("support click", () => {
+    const onClick = jest.fn();
+    render(
+      <{{componentName}} onClick={onClick}>
+        click
+      </{{componentName}}>
+    );
+    const btnElem = screen.getByText("click");
+    fireEvent.click(btnElem);
+    expect(onClick).toBeCalled();
+  });
+});

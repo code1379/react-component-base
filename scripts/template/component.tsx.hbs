@@ -1,0 +1,26 @@
+import classNames from "classnames";
+
+import "./index.css";
+
+export interface {{componentName}}Props extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+}
+
+const {{componentName}} = (props: {{componentName}}Props) => {
+  const { className, style, children, ...other } = props;
+
+  const cls = classNames({
+    "ant-{{componentDirName}}": true,
+    [className as string]: !!className,
+  });
+
+  return (
+    <div className={cls} style={style} {...other}>
+      {children}
+    </div>
+  );
+};
+
+export default {{componentName}};
