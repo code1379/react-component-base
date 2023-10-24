@@ -49,7 +49,7 @@ const lowCase = (str) =>
       .replace(/\\/g, "/")
       .replace("scripts/template", `src/${componentDirName}`)
       // .replace("component", dirName) // => component.tsx.hbs => input.tsx 因为我文件目录叫 react-component-learn 所以也会 replace 掉，所以我把这个注释掉
-      .replace("component.tsx", `${componentDirName}.tsx`)
+      .replace("Component.", `${componentDirName}.`)
       .replace(".hbs", "");
 
     await fs.writeFile(newPath, result);

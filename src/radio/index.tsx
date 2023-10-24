@@ -1,4 +1,2 @@
-import
-Radio
-from "./radio"; export default
-Radio;
+import Radio from "./Radio";
+export default Radio;

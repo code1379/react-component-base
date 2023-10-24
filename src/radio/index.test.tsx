@@ -9,15 +9,23 @@ describe("Radio", () => {
     const btnElem = screen.getByText("click");
     expect(btnElem).toBeInTheDocument();
   });
-  it("support click", () => {
-    const onClick = jest.fn();
+  it("support onChange", () => {
+    const onChange = jest.fn();
+    render(<Radio onChange={onChange}>click</Radio>);
+    const btnElem = screen.getByText("click");
+    fireEvent.click(btnElem);
+    expect(onChange).toBeCalled();
+  });
+
+  it("support under control", () => {
+    const onChange = jest.fn();
     render(
-      <Radio onClick={onClick}>
+      <Radio checked onChange={onChange}>
         click
       </Radio>
     );
     const btnElem = screen.getByText("click");
     fireEvent.click(btnElem);
-    expect(onClick).toBeCalled();
+    expect(onChange).toBeCalledTimes(0);
   });
 });

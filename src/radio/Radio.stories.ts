@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-
-import Radio from "./index.tsx";
+import Radio from "./Radio.tsx";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -28,5 +27,19 @@ export const Basic: Story = {
     onChange: (e) => {
       console.log(e);
     },
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    children: "content",
+    disabled: true,
+  },
+};
+
+export const Unchecked: Story = {
+  args: {
+    children: "Unchecked",
+    checked: false,
   },
 };
