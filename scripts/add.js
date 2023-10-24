@@ -6,7 +6,7 @@ import handlebars from "handlebars";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-function getCurrnetDir() {
+function getCurrentDir() {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   return __dirname;
@@ -34,7 +34,9 @@ const lowCase = (str) =>
   spawn("mkdir", ["-p", componentDir]);
 
   // 读取模版目录
-  const templateFiles = glob.sync(resolve(getCurrnetDir(), "template/*.hbs"));
+  const files = resolve(getCurrentDir(), "template/*.hbs");
+  const templateFiles = glob.sync(files.replace(/\\/g, "/"));
+
   templateFiles.forEach(async (filePath) => {
     const content = await fs.readFile(filePath, "utf8");
     // console.log("content", content);
@@ -44,6 +46,7 @@ const lowCase = (str) =>
       componentName,
     });
     const newPath = filePath
+      .replace(/\\/g, "/")
       .replace("scripts/template", `src/${componentDirName}`)
       // .replace("component", dirName) // => component.tsx.hbs => input.tsx 因为我文件目录叫 react-component-learn 所以也会 replace 掉，所以我把这个注释掉
       .replace("component.tsx", `${componentDirName}.tsx`)
