@@ -24,15 +24,15 @@ type Story = StoryObj<typeof meta>;
 export const Wrapper: Story = {
   render: () => {
     return (
-      <RadioGroup value={3}>
-        <Radio value={1} key={1}>
-          1
+      <RadioGroup value={"1"}>
+        <Radio value={"1"} key={"1"}>
+          "1"
         </Radio>
-        <Radio value={2} key={2}>
-          2
+        <Radio value={"2"} key={"2"}>
+          "2"
         </Radio>
-        <Radio value={3} key={3}>
-          3
+        <Radio value={"3"} key={"3"}>
+          "3"
         </Radio>
       </RadioGroup>
     );
