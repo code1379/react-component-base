@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import classNames from "classnames";
 
 import "./index.css";
@@ -10,7 +11,8 @@ export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
-  // value?: boolean;
+  value?: any;
+  key?: any;
 }
 
 const Radio = (props: RadioProps) => {
@@ -20,6 +22,7 @@ const Radio = (props: RadioProps) => {
     disabled = false,
     children,
     onChange,
+    value,
     // ...other
   } = props;
 
@@ -49,26 +52,35 @@ const Radio = (props: RadioProps) => {
     // 受控和非受控的理解 => 组件值在内部管理，受控。组件不在内部管理，非受控。
 
     // => 在外部管理，非受控 "checked" in props
+    // => 这里是受控的
     if (!("checked" in props)) {
       setChecked(!checked);
     }
 
+    // 即使是非受控组件，也可以调用 onChange 方法
     if (typeof onChange === "function") {
       e.target = inputEl.current;
       onChange(e);
     }
   };
 
+  // 非受控时，受外部控制
   useEffect(() => {
     if ("checked" in props && props.checked !== checked) {
       setChecked(props.checked!);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.checked]);
 
   return (
     <label className={wrapperCls} onClick={handleClick}>
       <span className={cls}>
-        <input ref={inputEl} type="radio" className="ant-radio-input" />
+        <input
+          ref={inputEl}
+          value={value}
+          type="radio"
+          className="ant-radio-input"
+        />
         <span className="ant-radio-inner"></span>
       </span>
       <span>{children}</span>
