@@ -1,7 +1,8 @@
 import classNames from "classnames";
 
 import "./index.css";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import CheckboxContext from "./context";
 
 export interface CheckboxProps extends React.HTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -11,6 +12,7 @@ export interface CheckboxProps extends React.HTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   // onChange?: (e) => void; // 继承自 HTMLInputElement 后就不需要添加这个
   disabled?: boolean;
+  value: string;
 }
 
 // 非受控，不受外部控制
@@ -62,8 +64,15 @@ const Checkbox = (props: CheckboxProps) => {
     defaultChecked = false,
     onChange: pOnChange,
     disabled = false,
+    value,
     ...other
   } = props;
+
+  const {
+    onChange: cOnChange,
+    disabled: cDisabled,
+    value: cValue,
+  } = useContext(CheckboxContext);
 
   //  拿到 input
   const inputRef = useRef(null);
@@ -77,6 +86,18 @@ const Checkbox = (props: CheckboxProps) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.checked]);
+
+  useEffect(() => {
+    if (cValue && "value" in props) {
+      if (cValue.includes(value)) {
+        setChecked(true);
+      } else {
+        setChecked(false);
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cValue]);
 
   // 外层 class
   const wrapperCls = classNames({
@@ -94,7 +115,7 @@ const Checkbox = (props: CheckboxProps) => {
   const handleClick = (e) => {
     // 必须加 preventDefault 否则点击 children 的地方 不能触发
     e.preventDefault();
-    if (disabled) {
+    if (disabled || cDisabled) {
       return;
     }
     // e.preventDefault();
@@ -108,6 +129,12 @@ const Checkbox = (props: CheckboxProps) => {
       e.target.checked = !checked;
       pOnChange(e);
     }
+
+    if (typeof cOnChange === "function") {
+      e.target = inputRef.current;
+      e.target.checked = !checked;
+      cOnChange(e);
+    }
   };
 
   return (
@@ -117,6 +144,7 @@ const Checkbox = (props: CheckboxProps) => {
         <input
           ref={inputRef}
           checked={checked}
+          value={value}
           className="ant-checkbox-input"
           onChange={handleClick}
           type="checkbox"
