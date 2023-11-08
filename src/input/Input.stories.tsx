@@ -37,3 +37,7 @@ export const Control = () => {
   };
   return <Input value={value} placeholder="basic usage" onChange={onChange} />;
 };
+
+export const CountTip = () => {
+  return <Input placeholder="basic usage" maxCount={20} showCount />;
+};

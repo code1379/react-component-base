@@ -22,7 +22,7 @@
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
-  font-feature-settings: 'tnum';
+  font-feature-settings: "tnum";
   position: relative;
   top: 0.2em;
   line-height: 1;
@@ -46,7 +46,7 @@
   visibility: hidden;
   animation: antCheckboxEffect 0.36s ease-in-out;
   animation-fill-mode: backwards;
-  content: '';
+  content: "";
 }
 .ant-checkbox:hover::after,
 .ant-checkbox-wrapper:hover .ant-checkbox::after {
@@ -79,7 +79,7 @@
   transform: rotate(45deg) scale(0) translate(-50%, -50%);
   opacity: 0;
   transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6), opacity 0.1s;
-  content: ' ';
+  content: " ";
 }
 .ant-checkbox-input {
   position: absolute;
@@ -102,7 +102,7 @@
   transform: rotate(45deg) scale(1) translate(-50%, -50%);
   opacity: 1;
   transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
-  content: ' ';
+  content: " ";
 }
 .ant-checkbox-checked .ant-checkbox-inner {
   background-color: #1890ff;
@@ -145,7 +145,7 @@
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
-  font-feature-settings: 'tnum';
+  font-feature-settings: "tnum";
   display: inline-flex;
   align-items: baseline;
   line-height: unset;
@@ -155,7 +155,7 @@
   display: inline-block;
   width: 0;
   overflow: hidden;
-  content: '\a0';
+  content: "\a0";
 }
 .ant-checkbox-wrapper.ant-checkbox-wrapper-disabled {
   cursor: not-allowed;
@@ -163,7 +163,7 @@
 .ant-checkbox-wrapper + .ant-checkbox-wrapper {
   margin-left: 8px;
 }
-.ant-checkbox-wrapper.ant-checkbox-wrapper-in-form-item input[type='checkbox'] {
+.ant-checkbox-wrapper.ant-checkbox-wrapper-in-form-item input[type="checkbox"] {
   width: 14px;
   height: 14px;
 }
@@ -180,7 +180,7 @@
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
-  font-feature-settings: 'tnum';
+  font-feature-settings: "tnum";
   display: inline-block;
 }
 .ant-checkbox-group-item {
@@ -205,7 +205,7 @@
   border: 0;
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
-  content: ' ';
+  content: " ";
 }
 .ant-checkbox-indeterminate.ant-checkbox-disabled .ant-checkbox-inner::after {
   background-color: rgba(0, 0, 0, 0.25);
@@ -224,4 +224,3 @@
 .ant-checkbox-group-rtl .ant-checkbox-group-item + .ant-checkbox-group-item {
   margin-left: 8px;
 }
-x1.00

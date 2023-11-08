@@ -11,6 +11,9 @@ export interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   className?: string;
   children?: ReactNode;
   style?: CSSProperties;
+  maxCount?: number;
+  showCount?: boolean;
+  prefix?: string;
 }
 
 const Input = (props: InputProps) => {
@@ -21,6 +24,9 @@ const Input = (props: InputProps) => {
     style,
     children,
     defaultValue = "",
+    maxCount,
+    showCount = false,
+    prefix,
     ...other
   } = props;
 
@@ -31,6 +37,8 @@ const Input = (props: InputProps) => {
 
   const [value, setValue] = useState(props.value || defaultValue);
 
+  // showCount
+
   const handleInputChange = (e) => {
     // if ("value" in props) return;
     // const _value = e.target.value;
@@ -40,6 +48,9 @@ const Input = (props: InputProps) => {
     // }
 
     const _value = e.target.value;
+    if ("maxCount" in props) {
+      if (_value.length > maxCount) return;
+    }
     if (!("value" in props)) {
       setValue(_value);
     }
@@ -53,7 +64,7 @@ const Input = (props: InputProps) => {
     }
   }, [props.value]);
 
-  return (
+  const input = (
     <input
       className={cls}
       value={value}
@@ -62,6 +73,27 @@ const Input = (props: InputProps) => {
       onChange={handleInputChange}
     />
   );
+
+  if (props.maxCount || prefix) {
+    return (
+      <span className="ant-input-affix-wrapper">
+        {prefix ? <span className="ant-input-prefix">{prefix}</span> : null}
+        <input
+          className={cls}
+          value={value}
+          type="text"
+          placeholder={placeholder}
+          onChange={handleInputChange}
+        />
+        <span className="ant-input-suffix">
+          <span className="ant-input-show-count-suffix">
+            {value.length} / {maxCount}
+          </span>
+        </span>
+      </span>
+    );
+  }
+  return input;
 };
 
 export default Input;
