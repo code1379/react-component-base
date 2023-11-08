@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import Input from "./index.tsx";
 import { useState } from "react";
 
+const { TextArea } = Input;
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: "Example/Input",
@@ -40,4 +41,21 @@ export const Control = () => {
 
 export const CountTip = () => {
   return <Input placeholder="basic usage" maxCount={20} showCount />;
+};
+
+export const TextAreaDemo = () => {
+  return <TextArea />;
+};
+
+export const TextAreaMaxLength = () => {
+  return <TextArea showCount maxLength={10} />;
+};
+
+export const ControlTextArea = () => {
+  const [value, setValue] = useState("111");
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+  };
+  return <TextArea value={value} onChange={handleChange} />;
 };
