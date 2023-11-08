@@ -5,6 +5,7 @@ import fs from "fs-extra";
 import handlebars from "handlebars";
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import fetch from "node-fetch";
 
 function getCurrentDir() {
   const __filename = fileURLToPath(import.meta.url);
@@ -21,7 +22,7 @@ const varCase = (str) =>
 const lowCase = (str) =>
   str.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`).replace(/^-/, "");
 
-(() => {
+(async () => {
   const currentDir = process.cwd();
   const name = process.argv[2];
   // 文件夹名 date-picker
@@ -49,11 +50,19 @@ const lowCase = (str) =>
       .replace(/\\/g, "/")
       .replace("scripts/template", `src/${componentDirName}`)
       // .replace("component", dirName) // => component.tsx.hbs => input.tsx 因为我文件目录叫 react-component-learn 所以也会 replace 掉，所以我把这个注释掉
-      .replace("Component.", `${componentDirName}.`)
+      .replace("Component.", `${componentName}.`)
       .replace(".hbs", "");
 
     await fs.writeFile(newPath, result);
     // console.log(chalk.green(`write ${newPath} success`));
     console.log("success");
   });
+
+  const response = await fetch(
+    `https://unpkg.com/antd@4.24.14/es/${componentDirName}/style/index.css`
+  );
+  const body = await response.text();
+
+  fs.writeFileSync(join(componentDir, "/index.css"), body);
+  // console.log(chalk.green(`update css file`));
 })();
