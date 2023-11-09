@@ -59,3 +59,8 @@ export const ControlTextArea = () => {
   };
   return <TextArea value={value} onChange={handleChange} />;
 };
+
+export const TextAreaAutoSize = () => {
+  // return <TextArea autoSize />;
+  return <TextArea autoSize={{ minRows: 2, maxRows: 4 }} />;
+};
